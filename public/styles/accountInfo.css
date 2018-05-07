@@ -1,0 +1,12 @@
+#accountInfoWrap {
+    float: right;
+}
+
+#accountPictureWrap {
+    position: relative;
+    width: 3em;
+    height: 3em;
+    padding: 1em;
+}
+
+#
