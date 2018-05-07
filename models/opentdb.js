@@ -16,7 +16,7 @@ const _ = require('lodash')
  * @param category Category of questions.
  * @param difficulty Questions diffuculty. Could either be 'easy', 'medium', or 'hard'.
  * @param questionType Type of questions. Could either be 'multiple' or 'booleon'.
- * @returns {Promise<object>} A object with information about questions fetched from the API.
+ * @returns {Promise<object>} An object with information about questions fetched from the API.
  * @throws Failed Connect - Could not connect to opentdb.
  * @throws Invalid query.
  */
