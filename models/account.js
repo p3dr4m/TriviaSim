@@ -1,4 +1,3 @@
-
 const db = require('./database')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -15,8 +14,6 @@ class Account {
    * @returns {undefined}
    */
   login (username, password) {
-    console.log(username)
-    console.log(password)
     return new Promise((resolve, reject) => {
       db.executeQuery(`SELECT * FROM public."ACCOUNTS" WHERE "USERNAME" = '${username}';`).then((queryResult) => {
         let result = JSON.parse(queryResult)
@@ -83,26 +80,3 @@ class Account {
 module.exports = {
   Account
 }
-
-
-
-
-// login (username, password) {
-//   console.log(username)
-//   console.log(password)
-//   return new Promise((resolve, reject) => {
-//     this.encryptPassword(password).then((result) => {
-//       db.executeQuery(`SELECT * FROM public."ACCOUNTS";`).then((queryResult) => {
-//         for (let i; i < queryResult.length; i++) {
-//           if (queryResult[i].USERNAME == username && bcrypt.compareSync(queryResult[i].PASSWORD, result)) {
-//             this.username = queryResult[0].USERNAME
-//             this.password = queryResult[0].PASSWORD
-//             this.userID = queryResult[0].ACCOUNT_ID
-//             resolve(true)
-//           }
-//         }
-//       })
-//       resolve(false)
-//     })
-//   })
-// }
