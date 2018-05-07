@@ -93,11 +93,7 @@ class Account {
           let found = userArray.some(function (el) {
             return el.USERNAME === USERNAME
           })
-          if (found) {
-            resolve(found)
-          } else {
-            reject(new Error('Username Not Found'))
-          }
+          resolve(!found)
         })
       } else {
         reject(new Error('Bad Username'))
