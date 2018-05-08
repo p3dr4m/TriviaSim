@@ -335,5 +335,5 @@ app.post('/createQuestion', (request, response) => {
  * @desc Function notifies port number of the local server
  */
 app.listen(port, () => {
-  console.log(`Server is up on port 8080`)
+  console.log(`Server lis up on port 8080`)
 })
