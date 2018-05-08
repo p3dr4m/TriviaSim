@@ -1,14 +1,19 @@
 <link rel="stylesheet" type="text/css" href="styles/accountInfo.css">
-<div class="headerButtons" id="accountInfoWrap">
+<div id="accountInfoWrap">
     <div id="accountPictureWrap">
         <div id="accountPicture"></div>
     </div>
-    <div id="accountUsername"></div>
-    <div id="accountMenuOpenButton"></div>
-    <!--<div id="accountMenu">-->
-        <!--<div class="accountMenuOptions">Profile</div>-->
-        <!--<div class="accountMenuOptions">Login</div>-->
-        <!--<div class="accountMenuOptions">Logout</div>-->
-    <!--</div>-->
+    <div id="accountUsername">GUEST</div>
+    <div id="accountMenuOpenButtonWrap">
+        <div id="accountMenuOpenButton"></div>
+    </div>
+    <div id="accountMenuWrap">
+        <div class="cards" id="accountMenu">
+            <div class="accountMenuOptions">PROFILE</div>
+            <div class="accountMenuOptions" onclick="showLoginWindow()">LOGIN</div>
+            <div class="accountMenuOptions">LOGOUT</div>
+        </div>
+    </div>
 </div>
+{{> login}}
 <script src="javascripts/accountInfo.js"></script>

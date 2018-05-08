@@ -1,12 +1,90 @@
 #accountInfoWrap {
+    position: relative;
+    height: 3em;
+    width: auto;
+    transition: 0.3s;
     float: right;
+    display: flex;
+    line-height: 3em;
+    padding: 0;
 }
 
 #accountPictureWrap {
     position: relative;
+    box-sizing: border-box;
+    width: 3em;
+    height: 3em;
+    padding: 0.5em;
+}
+
+#accountPicture {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    background-image: url('../assets/images/icons/default-profile-picture.svg');
+    background-size: cover;
+}
+
+#accountUsername {
+    position: relative;
+    padding: 0 0 0 0.5em;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+
+#accountMenuOpenButtonWrap {
+    position: relative;
+    box-sizing: border-box;
     width: 3em;
     height: 3em;
     padding: 1em;
 }
 
-#
+#accountMenuOpenButton {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    background-image: url('../assets/images/icons/down-arrow.svg');
+    background-size: cover;
+}
+
+#accountMenuWrap {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    top: 100%;
+    right: -100%;
+    padding: 0.25em;
+    z-index: 2;
+    transition: 0.3s;
+}
+
+#accountInfoWrap:hover {
+    cursor: pointer;
+}
+
+#accountInfoWrap:hover #accountMenuWrap {
+    right: 0;
+}
+
+#accountMenu {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--background-color);
+}
+
+.accountMenuOptions {
+    box-sizing: border-box;
+    width: 100%;
+    height: 3em;
+    line-height: 2em;
+    padding: 0.5em 1em;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.accountMenuOptions:hover {
+    background-color: var(--card-color);
+    color: var(--dark-font-color);
+    cursor: pointer;
+}

@@ -114,6 +114,7 @@ a {
     color: var(--light-font-color);
     border-radius: 0;
     transition: 0.3s;
+    z-index: 2;
 }
 
 .headerButtons {
@@ -146,6 +147,7 @@ a {
     top: 3em;
     height: calc(100vh - 3em);
     width: 100vw;
+    z-index: 1;
 }
 
 #contentBackground {
