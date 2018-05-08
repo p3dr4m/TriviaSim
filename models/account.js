@@ -1,4 +1,3 @@
-
 const db = require('./database')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -14,7 +13,7 @@ class Account {
    * @desc Provide desc later
    * @param username - user's username
    * @param password - user's password
-   * @returns {undefined}
+   * @returns {Promise<object>}
    */
   login (username, password) {
     console.log(username)
@@ -61,9 +60,10 @@ class Account {
     })
   }
 
-  /**
-   * @desc [To be determined]
-   * @returns {undefined}
+/**
+   * @desc <provide description>
+   * @param {string} USERNAME - User's username
+   * @returns {Promise<object>}
    */
   validateUsername (USERNAME) {
     return new Promise((resolve, reject) => {
