@@ -90,21 +90,6 @@ describe('Testing methods in Question Class', () => {
   })
 })
 
-describe('Testing user registration/login', () => {
-  let accInst = new Account.Account()
-  test('Registering users work as expected', async () => {
-    let username = 'jestUser'
-    let password = 'jestUser'
-    await expect(accInst.register(username, password)).resolves.toEqual(true)
-  })
-
-  test('Login work as expected', async () => {
-    let username = 'jestUser'
-    let password = 'jestUser'
-    await expect(accInst.login(username, password)).resolves.toEqual(true)
-  })
-})
-
 test('testing database connection local', () => {
   const db = require('../models/database')
   expect(db.getUsersList()).toBe('test')
