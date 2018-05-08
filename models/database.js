@@ -2,7 +2,7 @@ const {Client} = require('pg')
 
 let executeQuery = (query) => {
   let client = new Client({
-    connectionString: "postgres://postgres:20lipna1999@localhost:5432/kahoot_local"
+    connectionString: process.env.DATABASE_URL
   })
   console.log(process.env.DATABASE_URL)
   return new Promise((resolve, reject) => {
