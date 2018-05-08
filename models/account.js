@@ -40,7 +40,7 @@ class Account {
   // }
 
   /**
-   * @desc Encrypts user's password 
+   * @desc Encrypts user's password
    * @param password - user's password
    * @returns {Promise<object>}
    */
@@ -54,9 +54,9 @@ class Account {
 
   /**
    * @desc Registration of the user in the database
-   * @param username - user's username 
+   * @param username - user's username
    * @param password - user's password
-   * @returns {Promise<object>} 
+   * @returns {Promise<object>}
    */
   register (username, password) {
     return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ class Account {
     })
   }
 
-/**
+  /**
    * @desc [To be determined]
    * @returns {undefined}
    */
@@ -86,7 +86,7 @@ class Account {
     })
   }
 
-/**
+  /**
   * @desc Validates for a strong password
   * @param pass - password passed by the user <** correct? **>
   * @returns {boolean} if password is valid returns true, false otherwise
@@ -109,24 +109,3 @@ class Account {
 module.exports = {
   Account
 }
-
-
-// login (username, password) {
-//   console.log(username)
-//   console.log(password)
-//   return new Promise((resolve, reject) => {
-//     this.encryptPassword(password).then((result) => {
-//       db.executeQuery(`SELECT * FROM public."ACCOUNTS";`).then((queryResult) => {
-//         for (let i; i < queryResult.length; i++) {
-//           if (queryResult[i].USERNAME == username && bcrypt.compareSync(queryResult[i].PASSWORD, result)) {
-//             this.username = queryResult[0].USERNAME
-//             this.password = queryResult[0].PASSWORD
-//             this.userID = queryResult[0].ACCOUNT_ID
-//             resolve(true)
-//           }
-//         }
-//       })
-//       resolve(false)
-//     })
-//   })
-// }
