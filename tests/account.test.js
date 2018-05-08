@@ -1,4 +1,5 @@
 const opentdb = require('../models/opentdb');
+const db = require('../models/database')
 const questions = require('../controllers/questions');
 const usersM = require('../models/users');
 const Account = require('../models/account');
@@ -9,6 +10,10 @@ const invalidPromiseTestCatch = opentdb.getQuestions(
   difficulty = 1,
   questionType = 2
 );
+
+beforeAll(() => {
+  db.executeQuery(`DELETE FROM public."ACCOUNTS"`);
+});
 
 const invalidPromiseTest = opentdb.getQuestions
 
@@ -27,13 +32,13 @@ describe('Testing user registration/login', () => {
 
   test('Registering users work as expected', async () => {
     let username = 'jestUser1';
-    let password = 'jestUser1';
+    let password = 'jestUser';
     await expect(accInst.register(username, password)).resolves.toEqual(true);
   })
 
   test('Login work as expected', async () => {
-    let username = 'jestUser';
-    let password = 'jestUser1';
+    let username = 'jestUser1';
+    let password = 'jestUser';
     await expect(accInst.login(username, password)).resolves.toEqual(true);
   })
 })
