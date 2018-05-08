@@ -31,14 +31,6 @@ class Account {
     })
   }
 
-  // decrypPassword (password) {
-  //   return new Promise((resolve, reject) => {
-  //     bcrypt.compare(password, hash).then((res) => {
-  //     // res == true
-  //     })
-  //   })
-  // }
-
   /**
    * @desc Encrypts user's password
    * @param password - user's password
