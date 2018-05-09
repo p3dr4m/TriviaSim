@@ -8,7 +8,7 @@ let executeQuery = (query) => {
     client.connect()
     client.query(query, (err, res) => {
       if (err) {
-        console.log(err)
+        reject(err)
       } else {
         if (res.command === 'SELECT') {
           let result = JSON.stringify(res.rows)

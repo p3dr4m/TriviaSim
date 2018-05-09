@@ -1,11 +1,6 @@
 const account = require('./models/account.js')
 
 /**
- * @desc Import database library and assign users as constant.
- * @type {}
- */
-const db = require('./models/database')
-/**
  * @desc Import cookie-session module and assign cookieSession as constant
  * @type {Object}
  */
@@ -101,14 +96,12 @@ app.post('/storeuser', (request, response) => {
   }
 })
 
-app.post('/loginWithoutAccount', (request, response) => {
+app.post('/playWithoutAccount', (request, response) => {
   let sessionID = request.session.id.toString()
-  let newUser = new users.User(request.body.username)
+  let newUser = new account.Account(request.body.username)
   playingUsers[sessionID] = {}
   playingUsers[sessionID].user = newUser
-  response.send({
-    'userObject': newUser
-  })
+  response.send(newUser.toJSON())
 })
 
 /**
@@ -126,16 +119,34 @@ app.get('/leaderboard', (request, response) => {
 /**
  *
  */
-app.post('/getquestions', (request, response) => {
+app.post('/getnextquestion', (request, response) => {
+  let sessionID = request.session.id.toString()
+  if (Object.keys(playingUsers).includes(sessionID)) {
+    if (playingUsers[sessionID].questions !== undefined) {
+      if (playingUsers[sessionID].questions.currentQuestion < 9) {
+        playingUsers[sessionID].questions.currentQuestion++
+        response.send(playingUsers[sessionID].questions.minimalquestionsList[playingUsers[sessionID].questions.currentQuestion])
+      } else {
+        delete playingUsers[sessionID].questions
+        delete playingUsers[sessionID].user
+        response.sendStatus(204)
+      }
+    }
+  } else {
+    response.sendStatus(500)
+  }
+})
+
+app.post('/starttrivia', (request, response) => {
   let sessionID = request.session.id.toString()
   if (Object.keys(playingUsers).includes(sessionID)) {
     let newQuestions = new questions.Questions()
     playingUsers[sessionID].questions = newQuestions
     newQuestions.getQuestions().then((result) => {
-      response.send(result)
+      response.send(playingUsers[sessionID].questions.minimalquestionsList[playingUsers[sessionID].questions.currentQuestion])
     })
   } else {
-    response.send('Error')
+    response.sendStatus(500)
   }
 })
 
@@ -152,7 +163,7 @@ app.post('/validateanswer', (request, response) => {
 
     let result = questionsObject.assessQuestionResult(
       userObject,
-      request.body.questionNumber,
+      questionsObject.currentQuestion,
       request.body.chosenAnswer
     )
     response.send(result)
@@ -169,17 +180,15 @@ app.get('/about', (request, response) => {
   response.render('about.hbs')
 })
 
-app.get('/signin', (request, response) => {
-  response.render('signIn.hbs')
-})
+
 
 /**
- * @desc Renders Sign Up page
+ * @desc Renders Register page
  * @param {Object} request - Node.js request object
  * @param {Object} response - Node.js response object
  */
-app.get('/signup', (request, response) => {
-  response.render('signUp.hbs')
+app.get('/register', (request, response) => {
+  response.render('register.hbs')
 })
 
 /**
@@ -236,7 +245,7 @@ app.post('/register', (request, response) => {
 })
 
 /**
- * @desc If the user exists logs him in 
+ * @desc If the user exists logs him in
  * @param {Object} request - Node.js request object
  * @param {Object} response - Node.js response object
  */
@@ -261,5 +270,5 @@ app.post('/login', (request, response) => {
  * @desc Function notifies port number of the local server
  */
 app.listen(port, () => {
-  console.log(`Server lis up on port 8080`)
+  console.log(`Server is up on port 8080`)
 })

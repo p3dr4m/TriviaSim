@@ -128,7 +128,7 @@ class User {
    * @param currentStreak Current streak the user has for the quiz
    * @param highestStreak Highest streak the user has for the quiz
    */
-  constructor (username = 'testUser', userScore = 2000, currentStreak = 5, highestStreak = 5) {
+  constructor (username = 'testUser', userScore = 0, currentStreak = 5, highestStreak = 5) {
     this.username = username
     this.userScore = userScore
     this.currentStreak = currentStreak

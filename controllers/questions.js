@@ -13,6 +13,7 @@ class Questions {
   constructor () {
     this.questionsList = []
     this.minimalquestionsList = []
+    this.currentQuestion = 0
   }
 
   /**
@@ -30,6 +31,7 @@ class Questions {
         this.minimalquestionsList = []
         for (let i = 0; i < result.length; i++) {
           this.minimalquestionsList.push({
+            'index': i,
             'question': result[i].question,
             'option1': result[i].option1,
             'option2': result[i].option2,
@@ -51,26 +53,26 @@ class Questions {
    */
   assessQuestionResult (userObject, questionNumber, chosenAnswer) {
     if (this.questionsList[questionNumber].answers === Number(chosenAnswer)) {
-      userObject.userScore += pointPerQuestion + streakBonus * userObject.currentStreak
-      userObject.currentStreak++
-      if (userObject.currentStreak > userObject.highestStreak) {
-        userObject.highestStreak = userObject.currentStreak
+      userObject.currentScore.userScore += pointPerQuestion + streakBonus * userObject.currentScore.currentStreak
+      userObject.currentScore.currentStreak++
+      if (userObject.currentScore.currentStreak > userObject.currentScore.highestStreak) {
+        userObject.currentScore.highestStreak = userObject.currentScore.currentStreak
       }
 
       return {
         'result': true,
-        'currentUser': userObject
+        'currentUser': userObject.toJSON()
       }
     } else {
-      userObject.currentStreak = 0
+      userObject.currentScore.currentStreak = 0
       return {
         'result': false,
-        'currentUser': userObject
+        'currentUser': userObject.toJSON()
       }
     }
   }
 
-  /**'
+  /**
    * @deprecated using a database now
    * storeQuizResult store current user results with date, score, streak, username to the database
    * @param userObject Current user who played the game
@@ -79,7 +81,7 @@ class Questions {
     let date = new Date()
     let timeStamp = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 
-    user.storeUser(userObject.username, userObject.userScore, userObject.highestStreak, timeStamp)
+    user.storeUser(userObject.username, userObject.currentScore.userScore, userObject.currentScore.highestStreak, timeStamp)
   }
 }
 
