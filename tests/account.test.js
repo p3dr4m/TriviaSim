@@ -1,17 +1,6 @@
 /* eslint-env jest */
-const opentdb = require('../models/opentdb')
 const db = require('../models/database')
-const questions = require('../controllers/questions')
-const usersM = require('../models/users')
 const Account = require('../models/account')
-const promiseTest = opentdb.getQuestions()
-const invalidPromiseTest = opentdb.getQuestions
-const invalidPromiseTestCatch = opentdb.getQuestions(
-  numberofQuestions = 1,
-  category = 1,
-  difficulty = 1,
-  questionType = 2
-)
 
 beforeAll(() => {
   return undefined
@@ -56,25 +45,6 @@ describe('Testing user registration/login', () => {
     }
   })
 
-  test('Validating username ', async () => {
-    let username = 'Hello1'
-    await expect(accInst.validateUsername(username)).resolves.toBeTruthy()
-  })
-
-  test('should resolve truthy because valid usernames', async () => {
-    let goodUsername = ['as54d4535', 'DDsad3123']
-    for (let i = 0; i < goodUsername.length; i++) {
-      await expect(accInst.validateUsername(goodUsername[i])).toBeTruthy()
-    }
-  })
-
-  test('should resolve false for bad usernames', async () => {
-    let badUsername = ['@@@13123asdasdASDADS', '0123456789012345678901234567890123456789', 'asd\n123\n']
-    for (let i = 0; i < badUsername.length; i++) {
-      await expect(accInst.regexUsername(badUsername[i])).toBeFalsy()
-    }
-  })
-
   test('Registering users work as expected', async () => {
     let username = 'jestUser1'
     let password = 'jestUser'
@@ -85,5 +55,24 @@ describe('Testing user registration/login', () => {
     let username = 'jestUser1'
     let password = 'jestUser'
     await expect(accInst.login(username, password)).resolves.toEqual(true)
+  })
+
+  test('should resolve false for bad usernames', async () => {
+    let badUsername = ['@@@13123asdasdASDADS', '0123456789012345678901234567890123456789', 'asd\n123\n']
+    for (let i = 0; i < badUsername.length; i++) {
+      await expect(accInst.regexUsername(badUsername[i])).toBeFalsy()
+    }
+  })
+
+  test('Validating username ', async () => {
+    let username = 'Hello1'
+    await expect(accInst.validateUsername(username)).resolves.toBeTruthy()
+  })
+
+  test('should resolve truthy because valid usernames', async () => {
+    let goodUsername = ['as54d4535', 'DDsad3123']
+    for (let i = 0; i < goodUsername.length; i++) {
+      await expect(accInst.validateUsername(goodUsername[i])).toBeTruthy()
+    }
   })
 })
