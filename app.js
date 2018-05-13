@@ -277,6 +277,8 @@ app.post('/validateusername', (request, response) => {
     } else {
       response.sendStatus(406)
     }
+  }).catch(error => {
+    console.log(error)
   })
 })
 
@@ -308,6 +310,10 @@ app.post('/register', (request, response) => {
         response.send(finalResult)
       })
     } else {
+      response.sendStatus(406)
+    }
+  }).catch(error => {
+    if (error.message === 'Bad Username') {
       response.sendStatus(406)
     }
   })
