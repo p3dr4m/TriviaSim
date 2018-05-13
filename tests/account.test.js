@@ -1,9 +1,9 @@
 /* eslint-env jest */
-const db = require('../models/database')
-const Account = require('../models/account')
+const db = require.requireActual('../models/database')
+const Account = require.requireActual('../models/account')
 
 beforeAll(() => {
-  return undefined
+  // db.executeQuery(`DELETE FROM public."ACCOUNTS" WHERE "USERNAME" = 'jestUser1';`)
 })
 
 afterAll(() => {
@@ -24,55 +24,132 @@ afterEach(() => {
   return undefined
 })
 
-beforeAll(() => {
-  db.executeQuery(`DELETE FROM public."ACCOUNTS"`)
-})
-
 describe('Testing user registration/login', () => {
   let accInst = new Account.Account()
 
-  test('Validating correct passwords', async () => {
-    let password = ['hello1P', '123Hello123', '!@#Test3213!@##']
-    for (let i = 0; i < password.length; i++) {
-      await expect(accInst.validatePassword(password[i])).toBeTruthy()
-    }
-  })
-
-  test('Rejecting wrong passwords', async () => {
-    let wrongPassArr = ['hello', 'hello1', 'HELLO', '12312%$^#']
-    for (let i = 0; i < wrongPassArr.length; i++) {
-      await expect(accInst.validatePassword(wrongPassArr[i])).toBeFalsy()
-    }
-  })
-
   test('Registering users work as expected', async () => {
     let username = 'jestUser1'
-    let password = 'jestUser'
-    await expect(accInst.register(username, password)).resolves.toEqual(true)
+    let password = 'Password1'
+    await expect(accInst.register(username, password)).resolves.toBeTruthy()
   })
 
   test('Login work as expected', async () => {
     let username = 'jestUser1'
-    let password = 'jestUser'
-    await expect(accInst.login(username, password)).resolves.toEqual(true)
+    let password = 'Password1'
+    await expect(accInst.login(username, password)).resolves.toBeTruthy()
   })
+})
 
-  test('should resolve false for bad usernames', async () => {
-    let badUsername = ['@@@13123asdasdASDADS', '0123456789012345678901234567890123456789', 'asd\n123\n']
+describe('validateUsername() tests', () => {
+  let accInst = new Account.Account()
+
+  it('should reject and throw error because of bad username inputs', async () => {
+    let badUsername = [
+      '@@@13123asdasdASDADS',
+      '0123456789012345678901234567890123456789',
+      'asd\n123\n',
+      'a'
+    ]
     for (let i = 0; i < badUsername.length; i++) {
-      await expect(accInst.regexUsername(badUsername[i])).toBeFalsy()
+      await accInst.validateUsername(badUsername[i]).catch(error => {
+        expect(error.message).toBe('Bad Username')
+      })
     }
   })
 
-  test('Validating username ', async () => {
-    let username = 'Hello1'
-    await expect(accInst.validateUsername(username)).resolves.toBeTruthy()
+  it('should reject and throw error because of bad username inputs', async () => {
+    let badUsername = [
+      '@@@13123asdasdASDADS',
+      '0123456789012345678901234567890123456789',
+      'asd\n123\n',
+      'a'
+    ]
+    for (let i = 0; i < badUsername.length; i++) {
+      await accInst.validateUsername(badUsername[i]).catch(error => {
+        expect(error.message).toBe('Bad Username')
+      })
+    }
   })
 
-  test('should resolve truthy because valid usernames', async () => {
-    let goodUsername = ['as54d4535', 'DDsad3123']
+  it('should resolve truthy because valid usernames', async () => {
+    let testUsername = [
+      'as54d4535',
+      'DDsad3123',
+      'dsfasdf'
+    ]
+    for (let i = 0; i < testUsername.length; i++) {
+      await accInst.validateUsername(testUsername[i]).then(result => {
+        expect(result).toBeTruthy()
+      }).catch(error => {
+        expect(error.message).toBe('Username Not Found')
+      })
+    }
+  })
+
+  it('should resolve truthy because valid usernames', async () => {
+    let testUsername = [
+      'jestUser1',
+      'test',
+      'pedram123'
+    ]
+    for (let i = 0; i < testUsername.length; i++) {
+      await accInst.validateUsername(testUsername[i]).then(result => {
+        expect(result).toBeFalsy()
+      }).catch(error => {
+        expect(error.message).toBe('Username Not Found')
+      })
+    }
+  })
+})
+
+describe('regexUsername() method tests', () => {
+  let accInst = new Account.Account()
+
+  beforeEach(() => {
+    accInst = new Account.Account()
+  })
+
+  afterEach(function () {
+    accInst = undefined
+  })
+
+  test('test regex method for bad usernames', () => {
+    let badUsername = ['@@@13123asdasdASDADS', '0123456789012345678901234567890123456789', 'asd\n123\n', 'a']
+    for (let i = 0; i < badUsername.length; i++) {
+      expect(accInst.regexUsername(badUsername[i])).toBeFalsy()
+    }
+  })
+
+  test('test regex method for good usernames', () => {
+    let goodUsername = ['hello']
     for (let i = 0; i < goodUsername.length; i++) {
-      await expect(accInst.validateUsername(goodUsername[i])).toBeTruthy()
+      expect(accInst.regexUsername(goodUsername[i])).toBeTruthy()
+    }
+  })
+})
+
+describe('regexPassword() method tests', () => {
+  let accInst = new Account.Account()
+
+  beforeEach(() => {
+    accInst = new Account.Account()
+  })
+
+  afterEach(function () {
+    accInst = undefined
+  })
+
+  it('Validating correct passwords', () => {
+    let password = ['hello1P', '123Hello123', '!@#Test3213!@##']
+    for (let i = 0; i < password.length; i++) {
+      expect(accInst.regexPassword(password[i])).toBeTruthy()
+    }
+  })
+
+  it('Rejecting wrong passwords', () => {
+    let wrongPassArr = ['hello', 'hello1', 'HELLO', '12312%$^#']
+    for (let i = 0; i < wrongPassArr.length; i++) {
+      expect(accInst.regexPassword(wrongPassArr[i])).toBeFalsy()
     }
   })
 })
