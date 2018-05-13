@@ -12,7 +12,7 @@ class Users {
    * @constructor {string} this.fileName
    * @param fileName
    */
-  constructor (fileName = './users_data.json') {
+  constructor (fileName = './models/users_data.json') {
     this.fileName = fileName
     this.userList = []
     this.userList = this.loadUsers()
