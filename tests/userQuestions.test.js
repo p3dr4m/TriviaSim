@@ -17,7 +17,7 @@ test('Test if createQuestion works', async () => {
   )).resolves.toEqual(true)
 })
 
-test('Test if createQuestion validation works (empty imput)', async () => {
+test('Test if createQuestion validation works (empty input)', async () => {
   await expect(userQuestions.createQuestion(
     'What is my name?',
     '',

@@ -2,6 +2,7 @@ const db = require('./database')
 
 let createQuestion = (Q, CA, WA1, WA2, WA3, userID) => {
   return new Promise((resolve, reject) => {
+    userID.toString()
     if (Q !== '' && CA !== '' && WA1 !== '' && WA2 !== '' && WA3 !== '' && userID !== '' && CA !== WA1 && CA !== WA2 && CA !== WA3) {
       db.executeQuery(`INSERT INTO public."QUESTIONS"(
       "QUESTION_CONTENT",
