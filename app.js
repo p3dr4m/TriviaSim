@@ -142,14 +142,11 @@ app.post('/storeuser', (request, response) => {
   }
 })
 
-<<<<<<< HEAD
-=======
 /**
  * @desc Function creates a new sessionID and a new User using the Account class, allowing users to play without an account.
  * @param {Object} request - Node.js request object
  * @param {Object} response - Node.js response object
  */
->>>>>>> 583c21c45baf7f025d85ca77ea3baaf26a91a671
 app.post('/playAsGuest', (request, response) => {
   let sessionID = request.session.id.toString()
   let newUser = new account.Account(request.body.username)
