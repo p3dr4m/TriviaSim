@@ -4,7 +4,6 @@ mine/
 latest.dump
 users_data.json
 user_data.json
-yarn.lock
 
 # Created by https://www.gitignore.io/api/node
 
