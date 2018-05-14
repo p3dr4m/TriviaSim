@@ -176,7 +176,9 @@ describe('validateUsername() tests', () => {
   it('should resolve False because user names do exist in DB', async () => {
     let testUsername = [
       'jestUser1',
-      'test'
+      'tester1',
+      'tester2',
+      'tester3'
     ]
     for (let i = 0; i < testUsername.length; i++) {
       await accInst.validateUsername(testUsername[i]).then(result => {
