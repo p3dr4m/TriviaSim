@@ -1,0 +1,15 @@
+language: node_js
+sudo: required
+dist: trusty
+node_js:
+  - "node"
+  - "8"
+  - "10"
+addons:
+  postgresql: "10"
+services:
+  - postgresql
+before_script:
+  - psql -c 'CREATE DATABASE fkdb;' -U postgres
+# env:
+# - DATABASE_URL=postgres://postgres@localhost:5432/
