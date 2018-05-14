@@ -9,7 +9,6 @@ services:
   - postgresql
 script: "npm test"
 before_script:
-  - node app.js
   - psql -c 'CREATE DATABASE fkdb;' -U postgres
 # env:
 # - DATABASE_URL=postgres://postgres@localhost:5432/
