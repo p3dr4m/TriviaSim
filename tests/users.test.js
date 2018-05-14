@@ -1,13 +1,13 @@
 /* eslint-env jest */
-const usersM = require.requireActual('../models/users')
+const usersM = require('../models/users')
 
 beforeAll(() => {
   return undefined
 })
 
 afterAll(() => {
-  return undefined
-})
+  // need to remove last element from users_data.json
+});
 
 /**
  * If beforeEach is inside a describe block, it runs for each test in the describe block.

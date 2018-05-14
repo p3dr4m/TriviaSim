@@ -1,6 +1,8 @@
 /* Define variables: */
 :root {
-    --background-color: rgba(33, 33, 33, 1);
+    /*--background-color: rgba(33, 33, 33, 1);*/
+    --background-color: rgba(38, 50, 56, 1);
+    --background-lightup-color: rgba(55, 71, 79, 1);
     --card-color: rgba(245, 245, 245, 1);
     --light-font-color: rgba(236, 239, 241, 1);
     --dark-font-color: rgba(66 , 66, 66, 1)
@@ -11,7 +13,7 @@
     src: url("../assets/fonts/Roboto/Roboto-Regular.ttf");
 }
 
-/* Miscs: */
+/* Misc: */
 
 body {
     font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
@@ -39,13 +41,14 @@ a {
 .cards {
     border-radius: 2px;
     background-color: var(--card-color);
-    box-shadow: 0.055em 0.055em 0.1em 0.02em rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.05em 0.1em 0 rgba(0, 0, 0, 0.5);
     transition: 0.3s;
 }
 
 .buttons {
     transition: 0.3s;
-    box-shadow: 0.055em 0.055em 0.1em 0.02em rgba(0, 0, 0, 0.5);
+    /*box-shadow: 0.055em 0.055em 0.1em 0.02em rgba(0, 0, 0, 0.5);*/
+    box-shadow: 0 0.05em 0.1em 0 rgba(0, 0, 0, 0.5);
 }
 
 .round {
@@ -54,7 +57,8 @@ a {
 
 .buttons:hover {
     cursor: pointer;
-    box-shadow: 0.08em 0.08em 0.3em 0.07em rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.05em 0.2em 0 rgba(0, 0, 0, 0.5);
+    /*box-shadow: 0.08em 0.08em 0.3em 0.07em rgba(0, 0, 0, 0.5);*/
     /* box-shadow: 0.1em 0.1em 0.3em 0.01em rgba(0, 0, 0, 0.5), 0px 0px 0px 0.35em rgba(255, 255, 255, 0.7) inset; */
 }
 

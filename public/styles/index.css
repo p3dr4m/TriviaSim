@@ -73,6 +73,10 @@
     color: var(--light-font-color);
 }
 
+.greetBoxButtons:hover {
+    background-color: var(--background-lightup-color)
+}
+
 #trivia_category {
     position: absolute;
     box-sizing: border-box;
