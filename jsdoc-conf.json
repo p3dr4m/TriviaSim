@@ -1,7 +1,8 @@
 {
   "plugins": [
     "plugins/markdown",
-    "plugins/summarize"
+    "plugins/summarize",
+    "/home/pnazari/development/fake-kahoot/node_modules/jsdoc-http-plugin"
   ],
   "recurseDepth": 10,
   "source": {
