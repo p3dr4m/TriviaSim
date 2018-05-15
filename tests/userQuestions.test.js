@@ -7,34 +7,46 @@ beforeAll(() => {
 })
 
 test('Test if createQuestion works', async () => {
-  await expect(userQuestions.createQuestion(
+  await userQuestions.createQuestion(
     'What is my name?',
     'Shanyu',
     'Pedram',
     'Derek',
     'Maksym',
     1
-  )).resolves.toEqual(true)
+  ).then(result => {
+    expect(result).toBe('a')
+  }).catch(error => {
+    console.log(error)
+  })
 })
 
 test('Test if createQuestion validation works (empty input)', async () => {
-  await expect(userQuestions.createQuestion(
+  await userQuestions.createQuestion(
     'What is my name?',
     '',
     'Pedram',
     'Derek',
     'Maksym',
     1
-  )).resolves.toEqual(false)
+  ).then(result => {
+    expect(result).toEqual(false)
+  }).catch(error => {
+    console.log(error)
+  })
 })
 
 test('Test if createQuestion validation works (same answers)', async () => {
-  await expect(userQuestions.createQuestion(
+  await userQuestions.createQuestion(
     'What is my name?',
     'Shanyu',
     'Shanyu',
     'Derek',
     'Maksym',
     1
-  )).resolves.toEqual(false)
+  ).then(result => {
+    expect(result).toEqual(false)
+  }).catch(error => {
+    console.log(error)
+  })
 })
