@@ -25,10 +25,11 @@ class Users {
     if (fs.existsSync(this.fileName)) {
       return JSON.parse(fs.readFileSync(this.fileName))
     } else {
-      let object = {
+      let dummyFile = {
         'user': []
       }
-      fs.writeFileSync(this.fileName, JSON.stringify(object, null, 4), 'utf8')
+      fs.writeFileSync(this.fileName, JSON.stringify(dummyFile, null, 4), 'utf8')
+      return undefined
     }
   };
 
