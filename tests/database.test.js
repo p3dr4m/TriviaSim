@@ -27,16 +27,15 @@ describe('executeQuery() tests', () => {
     await db.executeQuery('SELECT * FROM public."ACCOUNTS";').then(result => {
       expect(result).toBeTruthy()
     }).catch(error => {
-      console.log(error)
+      expect(error.message).toBe('a')
     })
   })
 
   test('test executeQuery with empty string', async () => {
     await db.executeQuery('').then(result => {
       expect(result).toBeTruthy()
-      console.log(result)
     }).catch(error => {
-      console.log(error)
+      expect(error.message).toBe('a')
     })
   })
 

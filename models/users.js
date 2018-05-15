@@ -1,5 +1,5 @@
 const fs = require('fs')
-const db = require('./database')
+
 /**
  * @class Users
  * @classdesc This is the Users Class
@@ -14,7 +14,6 @@ class Users {
    */
   constructor (fileName = './models/users_data.json') {
     this.fileName = fileName
-    this.userList = []
     this.userList = this.loadUsers()
   }
 
@@ -26,6 +25,7 @@ class Users {
     if (fs.existsSync(this.fileName)) {
       return JSON.parse(fs.readFileSync(this.fileName))
     } else {
+      this.userList = []
       let object = {
         'user': []
       }
@@ -48,7 +48,7 @@ class Users {
    */
   storeUser (userObject) {
     let date = new Date()
-    let timeStamp = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    let timeStamp = `${date.toLocaleDateString('en-CA')} ${date.toLocaleTimeString('en-CA')}`
 
     this.userList.user.push({
       userData: userObject.username,
