@@ -16,7 +16,7 @@ let createQuestion = (Q, CA, WA1, WA2, WA3, userID) => {
       '${WA1}',
       '${WA2}',
       '${WA3}',
-      '${userID}'
+      ${userID}
       );`).then((result) => {
         resolve(true)
       })
