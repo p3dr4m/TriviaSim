@@ -22,7 +22,7 @@ test('Test if createQuestion works', async () => {
     'Maksym',
     0
   ).then(result => {
-    expect(result).toBe('a')
+    expect(result).toBeTruthy()
   }).catch(error => {
     console.log(error)
   })
