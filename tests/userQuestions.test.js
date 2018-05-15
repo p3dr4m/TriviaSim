@@ -5,7 +5,13 @@ const db = require.requireActual('../models/database')
 beforeAll(() => {
   db.executeQuery(
     `INSERT INTO public."ACCOUNTS" ("USERNAME", "PASSWORD") VALUES ('testName','testPassword');`
-  )
+  ).then(result => {
+    db.executeQuery(
+      `SELECT * FROM public."ACCOUNTS";`
+    ).then(res1 => {
+      console.log(res1)
+    })
+  })
 })
 
 afterAll(() => {
@@ -54,5 +60,12 @@ test('Test if createQuestion validation works (same answers)', async () => {
     expect(result).toEqual(false)
   }).catch(error => {
     console.log(error)
+  })
+})
+it('should ', () => {
+  db.executeQuery(
+    `SELECT * FROM public."ACCOUNTS";`
+  ).then(res1 => {
+    console.log(res1)
   })
 })
