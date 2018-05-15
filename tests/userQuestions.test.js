@@ -3,6 +3,12 @@ const userQuestions = require.requireActual('../models/userQuestions')
 const db = require.requireActual('../models/database')
 
 beforeAll(() => {
+  db.executeQuery(
+    `INSERT INTO public."ACCOUNTS" ("USERNAME", "PASSWORD") VALUES ('testName','testPassword');`
+  )
+})
+
+afterAll(() => {
   db.executeQuery(`DELETE FROM public."QUESTIONS" WHERE "QUESTION_CONTENT" = 'What is my name?';`)
 })
 
@@ -13,7 +19,7 @@ test('Test if createQuestion works', async () => {
     'Pedram',
     'Derek',
     'Maksym',
-    1
+    '1'
   ).then(result => {
     expect(result).toBe('a')
   }).catch(error => {
@@ -28,7 +34,7 @@ test('Test if createQuestion validation works (empty input)', async () => {
     'Pedram',
     'Derek',
     'Maksym',
-    1
+    '1'
   ).then(result => {
     expect(result).toEqual(false)
   }).catch(error => {
@@ -43,7 +49,7 @@ test('Test if createQuestion validation works (same answers)', async () => {
     'Shanyu',
     'Derek',
     'Maksym',
-    1
+    '1'
   ).then(result => {
     expect(result).toEqual(false)
   }).catch(error => {
