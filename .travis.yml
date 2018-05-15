@@ -10,7 +10,7 @@ services:
 script: "npm test"
 before_script:
   - psql -c 'create database travis;' -U postgres
-  - psql -c 'CREATE TABLE IF NOT EXISTS public."ACCOUNTS"
+  - psql -c `CREATE TABLE IF NOT EXISTS public."ACCOUNTS"
                (
                  "ACCOUNT_ID" bigint NOT NULL DEFAULT nextval('"ACCOUNTS_ACCOUNT_ID_seq"'::regclass),
                  "USERNAME" character varying(50) NOT NULL,
@@ -19,8 +19,8 @@ before_script:
                )
                WITH (
                  OIDS=FALSE
-               );'
-  - psql -c 'CREATE TABLE IF NOT EXISTS public."SCORES"
+               );`
+  - psql -c `CREATE TABLE IF NOT EXISTS public."SCORES"
               (
                 "SCORE_ID" bigint NOT NULL DEFAULT nextval('"SCORES_SCORE_ID_seq"'::regclass),
                 "ACCOUNT_ID" bigint NOT NULL,
@@ -34,8 +34,8 @@ before_script:
               )
               WITH (
                 OIDS=FALSE
-              );'
-  - psql -c 'CREATE TABLE IF NOT EXISTS public."QUESTIONS"
+              );`
+  - psql -c `CREATE TABLE IF NOT EXISTS public."QUESTIONS"
               (
                 "QUESTION_ID" bigint NOT NULL DEFAULT nextval('"QUESTIONS_QUESTION_ID_seq"'::regclass),
                 "QUESTION_CONTENT" character varying(1000),
@@ -51,4 +51,4 @@ before_script:
               )
               WITH (
                 OIDS=FALSE
-              );'
+              );`
