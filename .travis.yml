@@ -17,7 +17,7 @@ before_script:
                  "PASSWORD" character varying(100) NOT NULL,
                  CONSTRAINT "ACCOUNTS_pkey" PRIMARY KEY ("ACCOUNT_ID")
                )
-               WITH {
+               WITH (
                  OIDS=FALSE
                );'
   - psql -c 'CREATE TABLE IF NOT EXISTS public."SCORES"
