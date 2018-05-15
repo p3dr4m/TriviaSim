@@ -2,20 +2,15 @@
 const userQuestions = require.requireActual('../models/userQuestions')
 const db = require.requireActual('../models/database')
 
-beforeAll(() => {
-  db.executeQuery(
-    `INSERT INTO public."ACCOUNTS" ("USERNAME", "PASSWORD") VALUES ('testName','testPassword');`
-  ).then(result => {
-    db.executeQuery(
-      `SELECT * FROM public."ACCOUNTS";`
-    ).then(res1 => {
-      console.log(res1)
-    })
+beforeAll(async () => {
+  await db.executeQuery(`INSERT INTO public."ACCOUNTS" VALUES (0, 'test', 'test');`).then(result => {
+    return result
   })
 })
 
 afterAll(() => {
   db.executeQuery(`DELETE FROM public."QUESTIONS" WHERE "QUESTION_CONTENT" = 'What is my name?';`)
+  db.executeQuery(`DELETE FROM public."ACCOUNTS" WHERE "USERNAME" = 'test';`)
 })
 
 test('Test if createQuestion works', async () => {
@@ -25,7 +20,7 @@ test('Test if createQuestion works', async () => {
     'Pedram',
     'Derek',
     'Maksym',
-    1
+    0
   ).then(result => {
     expect(result).toBe('a')
   }).catch(error => {
@@ -40,7 +35,7 @@ test('Test if createQuestion validation works (empty input)', async () => {
     'Pedram',
     'Derek',
     'Maksym',
-    1
+    0
   ).then(result => {
     expect(result).toEqual(false)
   }).catch(error => {
@@ -55,7 +50,7 @@ test('Test if createQuestion validation works (same answers)', async () => {
     'Shanyu',
     'Derek',
     'Maksym',
-    1
+    0
   ).then(result => {
     expect(result).toEqual(false)
   }).catch(error => {
