@@ -275,7 +275,7 @@ describe('saveCurrentScore()', () => {
     await accInst.saveCurrentScore().then(result => {
       expect(result).toBeTruthy()
     }).catch(error => {
-      console.log(error)
+      return error
     })
   })
 })
