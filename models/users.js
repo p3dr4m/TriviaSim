@@ -25,7 +25,6 @@ class Users {
     if (fs.existsSync(this.fileName)) {
       return JSON.parse(fs.readFileSync(this.fileName))
     } else {
-      this.userList = []
       let object = {
         'user': []
       }
@@ -34,9 +33,8 @@ class Users {
   };
 
   /**
-   * @deprecated
-    * It's a function that saves users' info into a file.
-    */
+   * It's a function that saves users' info into a file.
+   */
   saveUsers () {
     fs.writeFileSync(this.fileName, JSON.stringify(this.userList, null, 4), 'utf8')
   };

@@ -26,7 +26,7 @@ afterEach(() => {
 
 describe('Testing class instances in users.js', () => {
   const userInst = new usersM.User()
-  const usersInst = new usersM.Users()
+  const usersInst = new usersM.Users('./tests/users_data.json')
 
   it('creates new User instance with valid parameters', () => {
     expect(typeof userInst.username).toBe('string')
