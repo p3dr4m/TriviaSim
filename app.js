@@ -44,6 +44,10 @@ const port = process.env.PORT || 8080
 
 let app = express()
 
+/**
+ * @desc playingUsers object contains sessionID objects that contain user account data, such as username, user id and current score
+ * @type {Object}
+ */
 let playingUsers = {}
 
 hbs.registerPartials(`${__dirname}/views/partials`)

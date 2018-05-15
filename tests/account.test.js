@@ -279,3 +279,15 @@ describe('saveCurrentScore()', () => {
     })
   })
 })
+
+describe('Test encryptPassword()', () => {
+  let accInst = new Account.Account()
+
+  test('unencrypted password should not equal encrypted', async () => {
+    await accInst.encryptPassword('Hello1').then(result => {
+      expect(result).not.toBe('Hello1')
+    }).catch(error => {
+      console.log(error)
+    })
+  })
+})
