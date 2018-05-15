@@ -108,7 +108,6 @@ class Users {
       }
       rankCounter++
     }
-
     return displayString
   };
 }

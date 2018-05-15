@@ -48,9 +48,7 @@ describe('Testing class instances in users.js', () => {
 
 describe('Users.displayTopUsers()', () => {
   it('should return html elements', () => {
-    let usersInst = new usersM.Users().displayTopUsers()
-    console.log(usersInst)
-    console.log(/<[a-z/][\s\S]*>/i.test(usersInst))
+    let usersInst = new usersM.Users('./tests/users_data.json').displayTopUsers()
     expect(/<[a-z/][\s\S]*>/i.test(usersInst)).toBeTruthy()
   })
 })
