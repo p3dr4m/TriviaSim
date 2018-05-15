@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const db = require('../models/database')
+const db = require.requireActual('../models/database')
 beforeAll(() => {
   return undefined
 })

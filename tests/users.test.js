@@ -1,5 +1,6 @@
 /* eslint-env jest */
-const usersM = require('../models/users')
+const usersM = require.requireActual('../models/users')
+const fs = require.requireActual('fs')
 
 beforeAll(() => {
   return undefined
@@ -54,7 +55,6 @@ describe('Users.displayTopUsers()', () => {
 
 describe('Users.loadUsers()', () => {
   let usersInst = new usersM.Users()
-  const fs = require('fs')
   beforeEach(() => {
     if (!fs.existsSync('./mine')) {
       fs.mkdirSync('./mine')

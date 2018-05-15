@@ -1,9 +1,6 @@
 {
   "name": "webapp_project",
   "version": "1.0.0",
-  "jest": {
-    "setupFiles": ["./tests/setupFile.js"]
-  },
   "description": "for michal",
   "main": "app.js",
   "scripts": {

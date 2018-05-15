@@ -1,6 +1,6 @@
 /* eslint-env jest */
-const userQuestions = require('../models/userQuestions')
-const db = require('../models/database')
+const userQuestions = require.requireActual('../models/userQuestions')
+const db = require.requireActual('../models/database')
 
 beforeAll(() => {
   db.executeQuery(`DELETE FROM public."QUESTIONS" WHERE "QUESTION_CONTENT" = 'What is my name?';`)
