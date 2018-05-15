@@ -4,7 +4,7 @@ const Account = require.requireActual('../models/account')
 
 beforeAll(() => {
   db.executeQuery(
-    `CREATE TABLE public."ACCOUNTS"
+    `CREATE TABLE IF NOT EXISTS public."ACCOUNTS"
   (
     "ACCOUNT_ID" bigint NOT NULL DEFAULT nextval('"ACCOUNTS_ACCOUNT_ID_seq"'::regclass),
     "USERNAME" character varying(50) NOT NULL,
@@ -19,7 +19,7 @@ beforeAll(() => {
   })
 
   db.executeQuery(
-    `CREATE TABLE public."SCORES"
+    `CREATE TABLE IF NOT EXISTS public."SCORES"
   (
     "SCORE_ID" bigint NOT NULL DEFAULT nextval('"SCORES_SCORE_ID_seq"'::regclass),
     "ACCOUNT_ID" bigint NOT NULL,
@@ -39,7 +39,7 @@ beforeAll(() => {
   })
 
   db.executeQuery(
-    `CREATE TABLE public."QUESTIONS"
+    `CREATE TABLE IF NOT EXISTS public."QUESTIONS"
   (
     "QUESTION_ID" bigint NOT NULL DEFAULT nextval('"QUESTIONS_QUESTION_ID_seq"'::regclass),
     "QUESTION_CONTENT" character varying(1000),

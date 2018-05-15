@@ -7,7 +7,7 @@ beforeAll(() => {
 
 afterAll(() => {
   // need to remove last element from users_data.json
-});
+})
 
 /**
  * If beforeEach is inside a describe block, it runs for each test in the describe block.
