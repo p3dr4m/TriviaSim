@@ -69,13 +69,10 @@ describe('Testing methods in Question Class', () => {
         instanceUser.currentScore.userScore = 500
         instanceQuestions.assessQuestionResult(instanceUser, 10, 1)
         expect(instanceUser.currentScore.userScore === 1000).toBe(true)
+        instanceQuestions.assessQuestionResult(instanceUser, 10, 2)
+        expect(instanceUser.currentScore.userScore).toBe(0)
       })
     })
-
-  test('test storeQuizResult', async () => {
-    expect(typeof instanceQuestions.storeQuizResult(instanceUsers))
-      .toBe('string')
-  })
 })
 
 describe('GetQuestions()', () => {
@@ -110,4 +107,9 @@ describe('GetQuestions()', () => {
       expect(error.message).toBeTruthy()
     })
   })
+})
+
+test('test storeQuizResult', async () => {
+  expect(typeof instanceQuestions.storeQuizResult(instanceUsers))
+    .toBe('string')
 })
