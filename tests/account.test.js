@@ -184,10 +184,10 @@ describe('saveCurrentScore()', () => {
     accInst.currentScore.userScore = 1000.0
     accInst.currentScore.currentStreak = 5
     accInst.currentScore.highestStreak = 9
-    await accInst.saveCurrentScore().then(result => {
+    await accInst.saveCurrentScore(9, 0).then(result => {
       expect(result).toBeTruthy()
     }).catch(error => {
-      return error
+      expect(error.message).toBeTruthy()
     })
   })
 })
@@ -218,6 +218,8 @@ describe('Test userPlayHistory()', () => {
 describe('Test userPlayHistory()', () => {
   test('getCreatedQuestions()', async () => {
     accInst.userID = 1
-    expect(await accInst.getCreatedQuestions()).toContain('<div class=\"round cards floatingButtons\" id=\"createQuestionButton\" onclick=\"showCreateQuestionWindow()\"></div>')
+    expect(await accInst.getCreatedQuestions()).toContain(
+      '<div class=\"round cards floatingButtons\" id=\"createQuestionButton\" ' +
+      'onclick=\"showCreateQuestionWindow()\"></div>')
   })
 })

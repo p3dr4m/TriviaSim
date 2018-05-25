@@ -79,17 +79,35 @@ describe('Testing methods in Question Class', () => {
 })
 
 describe('GetQuestions()', () => {
-  test('test getQuestions', async () => {
-    let testStructure = {
-      index: expect.anything(),
-      question: expect.anything(),
-      option1: expect.anything(),
-      option2: expect.anything(),
-      option3: expect.anything(),
-      option4: expect.anything()
-    }
+  let testStructure = {
+    index: expect.anything(),
+    question: expect.anything(),
+    option1: expect.anything(),
+    option2: expect.anything(),
+    option3: expect.anything(),
+    option4: expect.anything()
+  }
+  test('test getQuestions default', async () => {
     await instanceQuestions.getQuestions(tokenID).then(data => {
       expect(data[0]).toEqual(testStructure)
+    })
+  })
+
+  it('should getQuestions() medium', async () => {
+    await instanceQuestions.getQuestions(tokenID, 10, 15, 'medium')
+      .then(data => {
+        expect(data[0]).toEqual(testStructure)
+      })
+  })
+  it('should getQuestions() medium', async () => {
+    await instanceQuestions.getQuestions(tokenID, 10, 15, 'hard')
+      .then(data => {
+        expect(data[0]).toEqual(testStructure)
+      })
+  })
+  it('should reject getQuestions', async () => {
+    await instanceQuestions.getQuestions('asd', 'asd', 'asd').catch(error => {
+      expect(error.message).toBeTruthy()
     })
   })
 })
