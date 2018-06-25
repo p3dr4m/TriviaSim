@@ -1,4 +1,5 @@
 const opentdb = require('../models/opentdb')
+const userQuestions = require('../models/userQuestions')
 const pointPerQuestion = 500
 const streakBonus = 200
 
@@ -28,6 +29,7 @@ class Questions {
     this.currentQuestion = 0
     this.categoryID = undefined
     this.difficultyID = undefined
+    this.questionsListLength = 0
   }
 
   /**
@@ -56,40 +58,50 @@ class Questions {
     category = 15,
     difficulty = 'easy',
     questionType = 'multiple') {
-    return new Promise((resolve, reject) => {
-      opentdb.getQuestions(
-        sessionToken,
-        amount,
-        category,
-        difficulty,
-        questionType
-      ).then((result) => {
-        this.questionsList = result
-        this.minimalQuestionsList = []
-        for (let i = 0; i < this.questionsList.length; i++) {
-          this.minimalQuestionsList.push({
-            'index': i,
-            'question': result[i].question,
-            'option1': result[i].option1,
-            'option2': result[i].option2,
-            'option3': result[i].option3,
-            'option4': result[i].option4
-          })
-        }
-        this.categoryID = category
-        if (difficulty === 'easy') {
-          this.difficultyID = 1
-        } else if (difficulty === 'medium') {
-          this.difficultyID = 2
-        } else if (difficulty === 'hard') {
-          this.difficultyID = 3
-        }
-
-        resolve(this.minimalQuestionsList)
-      }).catch(error => {
-        reject(error)
+    if (category.toString() !== '33') {
+      return new Promise((resolve, reject) => {
+        opentdb.getQuestions(
+          sessionToken,
+          amount,
+          category,
+          difficulty,
+          questionType
+        ).then((result) => {
+          this.questionsList = result
+          this.minimalQuestionsList = []
+          for (let i = 0; i < this.questionsList.length; i++) {
+            this.minimalQuestionsList.push({
+              'index': i,
+              'question': result[i].question,
+              'option1': result[i].option1,
+              'option2': result[i].option2,
+              'option3': result[i].option3,
+              'option4': result[i].option4
+            })
+          }
+          this.categoryID = category
+          if (difficulty === 'easy') {
+            this.difficultyID = 1
+          } else if (difficulty === 'medium') {
+            this.difficultyID = 2
+          } else if (difficulty === 'hard') {
+            this.difficultyID = 3
+          }
+          this.questionsListLength = this.questionsList.length
+          resolve(this.minimalQuestionsList)
+        }).catch(error => {
+          reject(error)
+        })
       })
-    })
+    } else {
+      return new Promise((resolve, reject) => {
+        userQuestions.getRandomCustomQuiz(this).then((result) => {
+          resolve(this.minimalQuestionsList)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
 
   /**

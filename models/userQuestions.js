@@ -1,4 +1,5 @@
 const db = require('./database')
+const _ = require('lodash')
 /**
  * @module
  */
@@ -109,8 +110,61 @@ let createCustomQuiz = (accountID, quizName, date, questionIDList) => {
   })
 }
 
+let getRandomCustomQuiz = (questionsObject, num = 1) => {
+  return new Promise((resolve, reject) => {
+    db.executeQuery(`SELECT * FROM "CUSTOM_QUIZZES" ORDER BY RANDOM() LIMIT ${num}`)
+      .then((result) => {
+        let selectedQuizID = JSON.parse(result)[0].CUSTOM_QUIZ_ID
+        db.executeQuery(`SELECT * FROM "CUSTOM_QUIZZES_QUESTIONS" JOIN "QUESTIONS"
+        ON "CUSTOM_QUIZZES_QUESTIONS"."QUESTION_ID" = "QUESTIONS"."QUESTION_ID"
+        WHERE "CUSTOM_QUIZZES_QUESTIONS"."CUSTOM_QUIZ_ID" = ${selectedQuizID}`)
+          .then((result2) => {
+            let questionList = JSON.parse(result2)
+            questionsObject.questionsList = []
+            questionsObject.minimalQuestionsList = []
+            questionsObject.categoryID = 33
+            questionsObject.difficultyID = 0
+            for (let i = 0; i < questionList.length; i++) {
+              let answerArray = []
+              answerArray.push(
+                questionList[i].WRONG_ANSWER1,
+                questionList[i].WRONG_ANSWER2,
+                questionList[i].WRONG_ANSWER3,
+                questionList[i].RIGHT_ANSWER)
+              answerArray = _.shuffle(answerArray)
+              questionsObject.questionsList.push({
+                'index': i,
+                'question': questionList[i].QUESTION_CONTENT,
+                'option1': answerArray[0],
+                'option2': answerArray[1],
+                'option3': answerArray[2],
+                'option4': answerArray[3],
+                'answers': 1 + _.indexOf(
+                  answerArray,
+                  questionList[i].RIGHT_ANSWER
+                )
+              })
+              questionsObject.minimalQuestionsList.push({
+                'index': i,
+                'question': questionList[i].QUESTION_CONTENT,
+                'option1': answerArray[0],
+                'option2': answerArray[1],
+                'option3': answerArray[2],
+                'option4': answerArray[3]
+              })
+            }
+            questionsObject.questionsListLength = questionsObject.questionsList.length
+            resolve(true)
+          })
+      }).catch((error) => {
+        reject(error)
+      })
+  })
+}
+
 module.exports = {
   createQuestion,
   getRandomQuestions,
-  createCustomQuiz
+  createCustomQuiz,
+  getRandomCustomQuiz
 }

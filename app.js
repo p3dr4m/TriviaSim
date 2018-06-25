@@ -251,7 +251,7 @@ app.post('/getnextquestion', (request, response) => {
   let sessionID = request.session.id.toString()
   if (Object.keys(playingUsers).includes(sessionID)) {
     if (playingUsers[sessionID].questions !== undefined) {
-      if (playingUsers[sessionID].questions.currentQuestion < 9) {
+      if (playingUsers[sessionID].questions.currentQuestion < playingUsers[sessionID].questions.questionsListLength - 1) {
         let questionsObject = playingUsers[sessionID].questions
         let currIdx = questionsObject.currentQuestion
         let answerIdx = `option${questionsObject.questionsList[currIdx].answers}`
@@ -262,7 +262,7 @@ app.post('/getnextquestion', (request, response) => {
         playingUsers[sessionID].questions.currentQuestion++
         response.send(
           playingUsers[sessionID].questions.minimalQuestionsList[playingUsers[sessionID].questions.currentQuestion])
-      } else if (playingUsers[sessionID].questions.currentQuestion === 9) {
+      } else if (playingUsers[sessionID].questions.currentQuestion === playingUsers[sessionID].questions.questionsListLength - 1) {
         let questionsObject = playingUsers[sessionID].questions
         let currIdx = questionsObject.currentQuestion
         let answerIdx = `option${questionsObject.questionsList[currIdx].answers}`
@@ -295,7 +295,7 @@ app.post('/getbonusquestion', (request, response) => {
   let sessionID = request.session.id.toString()
   if (Object.keys(playingUsers).includes(sessionID)) {
     if (playingUsers[sessionID].questions !== undefined) {
-      if (playingUsers[sessionID].questions.currentQuestion === 9) {
+      if (playingUsers[sessionID].questions.currentQuestion === playingUsers[sessionID].questions.questionsListLength - 1) {
         userQuestions.getRandomQuestions().then((result) => {
           let bonusQuestion = JSON.parse(result)[0]
           let answerArray = _.shuffle([
@@ -311,9 +311,9 @@ app.post('/getbonusquestion', (request, response) => {
             'option4': answerArray[3],
             'answers': _.indexOf(answerArray, bonusQuestion.RIGHT_ANSWER) + 1
           })
-          let i = playingUsers[sessionID].questions.minimalQuestionsList.length
+          let i = playingUsers[sessionID].questions.questionsListLength
           playingUsers[sessionID].questions.minimalQuestionsList.push({
-            'index': playingUsers[sessionID].questions.minimalQuestionsList.length,
+            'index': playingUsers[sessionID].questions.questionsListLength,
             'question': playingUsers[sessionID].questions.questionsList[i].question,
             'option1': playingUsers[sessionID].questions.questionsList[i].option1,
             'option2': playingUsers[sessionID].questions.questionsList[i].option2,

@@ -3,8 +3,26 @@ const userQuestions = require.requireActual('../models/userQuestions')
 const db = require.requireActual('../models/database')
 
 beforeAll(async () => {
+  let date = new Date()
+  let timeStamp = `${date.toLocaleDateString('en-CA')} 
+      ${date.toLocaleTimeString('en-CA')}`
   await db.executeQuery(
     `INSERT INTO public."ACCOUNTS" VALUES ($1, $2, $3);`, ['0', 'test', 'test'])
+    .then(result => {
+      return result
+    })
+  await db.executeQuery(
+    `INSERT INTO public."QUESTIONS" VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`, ['0', 'test', 'test', 'test', 'test', 'test', '0', timeStamp])
+    .then(result => {
+      return result
+    })
+  await db.executeQuery(
+    `INSERT INTO public."QUIZ_CATEGORY" VALUES ($1, $2);`, [0, 'test'])
+    .then(result => {
+      return result
+    })
+  await db.executeQuery(
+    `INSERT INTO public."QUIZ_DIFFICULTY" VALUES ($1, $2);`, [0, 'test'])
     .then(result => {
       return result
     })
@@ -18,7 +36,8 @@ afterAll(async () => {
     `DELETE FROM public."ACCOUNTS" WHERE "USERNAME" = 'test';`, [])
 })
 
-test.skip('Test if createQuestion works', async () => {
+test('Test if createQuestion works', async () => {
+
   let date = new Date()
   let timeStamp = `${date.toLocaleDateString('en-CA')} 
       ${date.toLocaleTimeString('en-CA')}`
@@ -78,17 +97,12 @@ test('Test if getRandomQuestions() works', async () => {
   await expect(userQuestions.getRandomQuestions()).resolves.toBeTruthy()
 })
 
-test.skip('Test createCustomQuiz()', async () => {
-  let accID = '12'
+test('Test createCustomQuiz()', async () => {
+  let accID = '0'
   let qName = 'qweqwe'
-  let date = Date.now().toString()
-  let qList = {
-    'question': 'Question?',
-    'option1': 'op1',
-    'option2': 'op2',
-    'option3': 'op3',
-    'option4': 'op4',
-    'answers': 2
-  }
-  await expect(userQuestions.createCustomQuiz(accID, qName, date, qList)).resolves.toBeTruthy()
+  let date = new Date()
+  let timeStamp = `${date.toLocaleDateString('en-CA')} 
+      ${date.toLocaleTimeString('en-CA')}`
+  let qList = ['0']
+  await expect(userQuestions.createCustomQuiz(accID, qName, timeStamp, qList)).resolves.toBeTruthy()
 })
