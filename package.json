@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/team2-fake-kahoot/fake-kahoot#readme",
   "dependencies": {
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
