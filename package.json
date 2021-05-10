@@ -23,7 +23,7 @@
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "pg": "^7.4.3",
     "request": "^2.86.0",
     "require": "^2.4.20",
